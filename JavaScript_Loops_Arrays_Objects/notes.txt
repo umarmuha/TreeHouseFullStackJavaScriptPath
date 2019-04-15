@@ -1,0 +1,1 @@
+JSON is a string that's formatted LIKE a JavaScript object literal.

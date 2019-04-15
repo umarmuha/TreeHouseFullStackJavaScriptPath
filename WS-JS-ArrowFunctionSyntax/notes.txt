@@ -1,0 +1,7 @@
+- TODO rewrite some of the earlier code to use Arrow functions
+
+- Function declaration is defining a normal functions
+- Function expression is where you assign a function to a variable
+    const sayName = function () {}
+- Arrow functions are similar to function expression 
+    const sayName = () => {}
