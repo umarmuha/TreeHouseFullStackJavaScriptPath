@@ -1,47 +1,56 @@
+/*
+  Create a Pet class with animal, age, breed and sound arguments
+  Add a speak() method
+  Create a get() method to find the activity of the animal based on the time of day
+  Create an Owner Class asking for name, address and phone#
+*/
 class Pet {
-  constructor (animal,age,breed,sound) {
+  constructor(animal, age, breed, sound) {
     this.animal = animal;
     this.age = age;
     this.breed = breed;
-    this.sound = sound;
-  }
+    this.sound = sound
+  } // end constructor
 
-  get activity () {
+  speak() {
+    console.log(`${this.animal} is making ${this.sound}`)
+  }; // end speak
+
+  get activity() {
     let today = new Date();
     let hour = today.getHours();
     if (hour >= 8 && hour <= 20) {
-      return `My ${this.animal} is playing right now!`;
+      return `${this.animal} is playing`;
     } else {
-      return `My ${this.animal} is sleeping right now!`;
+      return `${this.animal} is sleeping`;
     }
-  };
+  }; // end activity
+}; // end Pet class
 
-  get owner(){
-    return this._owner;
-  };
-  
-  set owner(owner){
-    this._owner = owner;
-  };
-
-  speak(){
-    console.log(`My ${this.animal} is saying ${this.sound}`);
+class Owner {
+  constructor(name, address) {
+    this.name = name;
+    this.address = address;
   }
-}
 
-// ToDo
-// Create an Owner Class asking for name, address and phone#
+  get phoneNumber() {
+    return this._phoneNumber;
+  }; // end getter
+
+  set phoneNumber(phoneNumber) {
+    const phoneNumberNormalized = phoneNumber.replace(/[^0-9]/g, '');
+    this._phoneNumber = phoneNumberNormalized;
+  }; // end setter
+
+}; // end Owner class
 
 
-const rex = new Pet('dog', 2, 'puma', 'woof woof');
-const chirp = new Pet('bird', 1, 'angryBrid', 'chirp chirp');
-const vera = new Pet('dog',8,'Border Collie', 'bak bak');
+const rex = new Pet('dog', 2, "dobberman", "woof");
 
-console.log(rex.sound);
+// ***The property of an object can be another object***
+rex.owner = new Owner("John", "1234 Main St.");
+rex.owner.phoneNumber = "517-999-8766";
 
-rex.speak();
-
-console.log(rex.activity);
-
-rex.owner = 'Umar';
-console.log(rex.owner);
+//console.log(rex.activity);
+console.log(`\n My pet is a ${rex.animal}. It is ${rex.age} years old. Its a ${rex.breed} and it loves to make ${rex.sound} sound. My ${rex.activity} right now \n`);
+console.log(`\n ${rex.owner.phoneNumber} \n`);
