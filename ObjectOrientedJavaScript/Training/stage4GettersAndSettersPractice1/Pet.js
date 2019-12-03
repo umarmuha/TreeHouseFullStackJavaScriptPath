@@ -32,7 +32,7 @@ class Pet {
         return this._owner;
     }
     set owner(owner) {
-        this._owner = owner; //this in this line represents the property that will be added or updated on the object
+        this._owner = owner; //'this' in this line represents the property that will be added or updated on the object
         console.log(`setter called ${owner}`)
     }
 
