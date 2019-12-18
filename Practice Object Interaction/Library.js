@@ -15,6 +15,7 @@ class Library{
 
     chargeFines(){
         let today = new Date();
+        // The teachers solution first filters the Patrons that have overdue books. In a large dataset that would be the best approach. 
         for (const patron of this.patrons) {
             if (patron.currentBook !== null && patron.currentBook.dueDate < today) {
                 // The difference between two dates is not a date itself but a span of time. In this example, that difference is 14 days.
