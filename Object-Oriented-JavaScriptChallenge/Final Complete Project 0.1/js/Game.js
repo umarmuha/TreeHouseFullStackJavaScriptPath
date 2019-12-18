@@ -125,8 +125,18 @@ class Game {
     /** 
      * Switches active player. 
      */
-    switchPlayers(){
+    switchPlayers() {
         return this.players.map(player => player.active = true ? false : true);
+    }
+
+    /** 
+     * Displays game over message.
+     * @param {string} message - Game over message.      
+     */
+    gameOver(message){
+        let gameOver = document.getElementById("game-over");
+        gameOver.style.display = 'block';
+        gameOver.textContent = message;
     }
 
     /**
