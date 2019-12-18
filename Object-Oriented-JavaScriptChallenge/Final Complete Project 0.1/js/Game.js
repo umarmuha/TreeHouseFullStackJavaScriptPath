@@ -119,9 +119,15 @@ class Game {
                 }
             }
         }
-
+        return win;
     }
 
+    /** 
+     * Switches active player. 
+     */
+    switchPlayers(){
+
+    }
 
     /**
      * Branches code, depending on what key player presses
