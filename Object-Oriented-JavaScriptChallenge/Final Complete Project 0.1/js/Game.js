@@ -53,7 +53,9 @@ class Game {
         if (targetSpace !== null) {
             newGame.ready = false;
             targetSpace.mark(this.activePlayer.activeToken);
-            this.activePlayer.activeToken.drop(targetSpace);
+            this.activePlayer.activeToken.drop(targetSpace, () => {
+                this.updateGameState(this.activePlayer.activeToken, targetSpace);
+            });
 
         }
 
@@ -133,10 +135,38 @@ class Game {
      * Displays game over message.
      * @param {string} message - Game over message.      
      */
-    gameOver(message){
+    gameOver(message) {
         let gameOver = document.getElementById("game-over");
         gameOver.style.display = 'block';
         gameOver.textContent = message;
+    }
+
+    /** 
+     * Updates game state after token is dropped. 
+     * @param   {Object}  token  -  The token that's being dropped.
+     * @param   {Object}  target -  Targeted space for dropped token.
+     */
+    updateGameState(token, target) {
+        // Space on the board where the token is being dropped
+        target.mark(token);
+        // Check for win after the token is dropped. If four in a row, game ends
+        if (checkForWin(target)) {
+            this.gameOver(`${target.owner.name} wins!`);
+        } else {
+            this.switchPlayers()
+            /**
+             * game should check to ensure that the activePlayer still has available tokens. 
+             * If there are still available tokens, then draw a new htmlToken, 
+             * and then set the game state to ready.
+             */
+            if (this.activePlayer.unusedTokens().length !== 0) {
+                return this.activePlayer.activeToken.htmlToken()
+            } else {
+                this.gameOver();
+            }
+        }
+
+
     }
 
     /**
