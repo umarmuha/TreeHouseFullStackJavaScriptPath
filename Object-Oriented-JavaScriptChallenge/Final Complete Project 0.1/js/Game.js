@@ -126,7 +126,7 @@ class Game {
      * Switches active player. 
      */
     switchPlayers(){
-
+        return this.players.map(player => player.active = true ? false : true);
     }
 
     /**
@@ -147,6 +147,7 @@ class Game {
 
             if (event.key === "ArrowDown") {
                 this.playToken();
+                this.switchPlayers();
             }
         }
     }
