@@ -52,9 +52,9 @@ class Game {
         }
         if (targetSpace !== null) {
             newGame.ready = false;
-            targetSpace.mark(this.activePlayer.activeToken);
-            this.activePlayer.activeToken.drop(targetSpace, () => {
-                this.updateGameState(this.activePlayer.activeToken, targetSpace);
+            targetSpace.mark(newGame.activePlayer.activeToken);
+            newGame.activePlayer.activeToken.drop(targetSpace, function(){
+                newGame.updateGameState(newGame.activePlayer.activeToken, targetSpace);
             });
 
         }
@@ -128,7 +128,10 @@ class Game {
      * Switches active player. 
      */
     switchPlayers() {
-        return this.players.map(player => player.active = true ? false : true);
+        //return this.players.map(player => player.active === true ? false : true);
+        for (const player of this.players) {
+            player.active = player.active === true ? false : true;
+        }
     }
 
     /** 
@@ -150,7 +153,7 @@ class Game {
         // Space on the board where the token is being dropped
         target.mark(token);
         // Check for win after the token is dropped. If four in a row, game ends
-        if (checkForWin(target)) {
+        if (this.checkForWin(target)) {
             this.gameOver(`${target.owner.name} wins!`);
         } else {
             this.switchPlayers()
@@ -159,10 +162,11 @@ class Game {
              * If there are still available tokens, then draw a new htmlToken, 
              * and then set the game state to ready.
              */
-            if (this.activePlayer.unusedTokens().length !== 0) {
-                return this.activePlayer.activeToken.htmlToken()
+            if (this.activePlayer.checkTokens()) {
+                this.activePlayer.activeToken.drawHTMLToken();
+                this.ready = true;
             } else {
-                this.gameOver();
+                this.gameOver('No more tokens!');
             }
         }
 
@@ -187,7 +191,6 @@ class Game {
 
             if (event.key === "ArrowDown") {
                 this.playToken();
-                this.switchPlayers();
             }
         }
     }
